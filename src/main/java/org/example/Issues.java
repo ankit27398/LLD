@@ -2,7 +2,7 @@ package org.example;
 import java.util.Random;
 
 public abstract class Issues implements Issue {
-    private IssueState state;
+    private StateContext stateContext;
     private String assignedCSAName;
     private IssueType issueType;
     private String custEmailId;
@@ -17,11 +17,16 @@ public abstract class Issues implements Issue {
         this.custEmailId = email;
         this.issueType = issueType;
         createIssueId();
+        stateContext = new OpenState();
     }
 
     private void createIssueId() {
         Random rand = new Random();
         this.id = rand.nextInt(100);
+    }
+
+    protected void changeStateContext(StateContext tgtStateContext) {
+        this.stateContext = tgtStateContext;
     }
 
     public IssueType getIssueType() {
@@ -33,12 +38,11 @@ public abstract class Issues implements Issue {
     }
 
     public IssueState getIssueState() {
-        return this.state;
+        return this.stateContext.getIssueState();
     };
 
-    public boolean updateIssueState(IssueState tgtIssueState) {
-        this.state = tgtIssueState;
-        return true;
+    public void updateIssueState(StateContext tgtIssueContext) {
+        this.stateContext.updateIssueState(this, tgtIssueContext);
     };
 
     public String getCustEmail() {

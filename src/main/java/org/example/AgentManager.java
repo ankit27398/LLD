@@ -18,7 +18,7 @@ public class AgentManager {
             if(agent.getKnownIssueTypes().contains(issueType) && agent.getOpenIssue() == null) {
                 return agent;
             } else {
-                List<Issue> queuedIssues = agent.getQueuedIssues();
+                List<Integer> queuedIssues = agent.getQueuedIssues();
                 if(queuedIssues.size() < minAssigned) {
                     minAssigned = queuedIssues.size();
                     minAssignedAgent = agent;
@@ -26,5 +26,9 @@ public class AgentManager {
             }
         }
         return minAssignedAgent;
+    }
+
+    public static IssueState assignIssue(CustomerServiceAgent csa, int issueId) {
+        return csa.assignIssue(issueId);
     }
 }

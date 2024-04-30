@@ -3,7 +3,7 @@ package org.example;
 public interface Issue {
     public IssueState getIssueState();
 
-    public boolean updateIssueState(IssueState tgtIssueState);
+    public void updateIssueState(StateContext tgtIssueContext);
 
     public IssueType getIssueType();
 
@@ -17,4 +17,5 @@ public interface Issue {
 
     public int getTrandId();
 
+    //public void changeStateContext(StateContext tgtStateContext);
 }
